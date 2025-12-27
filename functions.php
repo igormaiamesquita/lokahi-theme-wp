@@ -46,10 +46,11 @@ function lokahi_digital_setup() {
 		*/
 	add_theme_support( 'post-thumbnails' );
 
-	// This theme uses wp_nav_menu() in one location.
+	// Register navigation menus
 	register_nav_menus(
 		array(
-			'menu-1' => esc_html__( 'Primary', 'lokahi-digital' ),
+			'primary' => esc_html__( 'Primary Menu', 'lokahi-digital' ),
+			'footer'  => esc_html__( 'Footer Menu', 'lokahi-digital' ),
 		)
 	);
 
@@ -138,11 +139,20 @@ add_action( 'widgets_init', 'lokahi_digital_widgets_init' );
  * Enqueue scripts and styles.
  */
 function lokahi_digital_scripts() {
+	// Main stylesheet
 	wp_enqueue_style( 'lokahi-digital-style', get_stylesheet_uri(), array(), _S_VERSION );
 	wp_style_add_data( 'lokahi-digital-style', 'rtl', 'replace' );
 
+	// Anime.js library from CDN
+	wp_enqueue_script( 'anime-js', 'https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js', array(), '3.2.1', true );
+
+	// Navigation script
 	wp_enqueue_script( 'lokahi-digital-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
 
+	// Custom animations script (depends on anime.js)
+	wp_enqueue_script( 'lokahi-digital-animations', get_template_directory_uri() . '/js/animations.js', array( 'anime-js' ), _S_VERSION, true );
+
+	// Comment reply script
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}

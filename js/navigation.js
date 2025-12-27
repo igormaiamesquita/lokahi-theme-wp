@@ -55,6 +55,16 @@
 	// Get all the link elements within the menu.
 	const links = menu.getElementsByTagName( 'a' );
 
+	// Close mobile menu when a link is clicked (useful for one-page navigation)
+	for ( const link of links ) {
+		link.addEventListener( 'click', function() {
+			if ( siteNavigation.classList.contains( 'toggled' ) ) {
+				siteNavigation.classList.remove( 'toggled' );
+				button.setAttribute( 'aria-expanded', 'false' );
+			}
+		} );
+	}
+
 	// Get all the link elements with children within the menu.
 	const linksWithChildren = menu.querySelectorAll( '.menu-item-has-children > a, .page_item_has_children > a' );
 
