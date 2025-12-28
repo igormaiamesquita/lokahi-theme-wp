@@ -881,16 +881,330 @@ document.addEventListener('DOMContentLoaded', function() {
 		pulseDesktop();
 	}
 
+	// Animation 5: Softwares Personalizados - Modular architecture with code compilation
+	function createSoftwaresAnimation(container) {
+		const width = 280;
+		const height = 200;
+
+		const svg = d3.select(container)
+			.append('svg')
+			.attr('width', width)
+			.attr('height', height)
+			.attr('viewBox', `0 0 ${width} ${height}`);
+
+		const centerX = width / 2;
+		const centerY = height / 2;
+
+		// Module components (building blocks)
+		const modules = [
+			{ id: 1, x: 70, y: 60, size: 35, color: '#3B82F6', label: 'API' },
+			{ id: 2, x: 210, y: 60, size: 35, color: '#10B981', label: 'UI' },
+			{ id: 3, x: 70, y: 140, size: 35, color: '#F59E0B', label: 'DB' },
+			{ id: 4, x: 210, y: 140, size: 35, color: '#EF4444', label: 'LOG' }
+		];
+
+		// Central processor/core
+		svg.append('circle')
+			.attr('cx', centerX)
+			.attr('cy', centerY)
+			.attr('r', 25)
+			.attr('fill', 'none')
+			.attr('stroke', '#3B82F6')
+			.attr('stroke-width', 2.5)
+			.attr('opacity', 0.6);
+
+		svg.append('text')
+			.attr('x', centerX)
+			.attr('y', centerY)
+			.attr('text-anchor', 'middle')
+			.attr('dy', '0.35em')
+			.attr('fill', '#3B82F6')
+			.attr('font-size', '12px')
+			.attr('font-weight', 'bold')
+			.text('CORE');
+
+		// Create module blocks
+		const moduleGroups = svg.selectAll('.module')
+			.data(modules)
+			.enter()
+			.append('g')
+			.attr('class', 'module')
+			.attr('transform', d => `translate(${d.x}, ${d.y})`);
+
+		moduleGroups.append('rect')
+			.attr('x', -17.5)
+			.attr('y', -17.5)
+			.attr('width', 35)
+			.attr('height', 35)
+			.attr('rx', 4)
+			.attr('fill', 'none')
+			.attr('stroke', d => d.color)
+			.attr('stroke-width', 2);
+
+		moduleGroups.append('text')
+			.attr('text-anchor', 'middle')
+			.attr('dy', '0.35em')
+			.attr('fill', d => d.color)
+			.attr('font-size', '10px')
+			.attr('font-weight', 'bold')
+			.text(d => d.label);
+
+		// Connection lines (data flow)
+		const connections = [
+			{ from: modules[0], to: { x: centerX, y: centerY } },
+			{ from: modules[1], to: { x: centerX, y: centerY } },
+			{ from: modules[2], to: { x: centerX, y: centerY } },
+			{ from: modules[3], to: { x: centerX, y: centerY } }
+		];
+
+		const lines = svg.selectAll('.connection')
+			.data(connections)
+			.enter()
+			.append('line')
+			.attr('class', 'connection')
+			.attr('x1', d => d.from.x)
+			.attr('y1', d => d.from.y)
+			.attr('x2', d => d.to.x)
+			.attr('y2', d => d.to.y)
+			.attr('stroke', '#334155')
+			.attr('stroke-width', 1.5)
+			.attr('opacity', 0.3)
+			.attr('stroke-dasharray', '4,4');
+
+		// Data packets traveling
+		function animateDataFlow() {
+			connections.forEach((conn, i) => {
+				const packet = svg.append('circle')
+					.attr('cx', conn.from.x)
+					.attr('cy', conn.from.y)
+					.attr('r', 3)
+					.attr('fill', modules[i].color)
+					.attr('opacity', 0.8);
+
+				packet.transition()
+					.duration(1500)
+					.ease(d3.easeLinear)
+					.attr('cx', conn.to.x)
+					.attr('cy', conn.to.y)
+					.on('end', function() {
+						d3.select(this).remove();
+					});
+			});
+		}
+
+		// Code stream
+		const codeGroup = svg.append('g').attr('class', 'code-stream');
+
+		function generateCodeStream() {
+			const codes = ['0', '1', '01', '10', '11', '00'];
+			const code = codes[Math.floor(Math.random() * codes.length)];
+			const startX = Math.random() * width;
+
+			const text = codeGroup.append('text')
+				.attr('x', startX)
+				.attr('y', -10)
+				.attr('fill', '#10B981')
+				.attr('font-size', '10px')
+				.attr('font-family', 'monospace')
+				.attr('opacity', 0.6)
+				.text(code);
+
+			text.transition()
+				.duration(3000)
+				.ease(d3.easeLinear)
+				.attr('y', height + 10)
+				.attr('opacity', 0)
+				.on('end', function() {
+					d3.select(this).remove();
+				});
+		}
+
+		setInterval(animateDataFlow, 2000);
+		setInterval(generateCodeStream, 400);
+		animateDataFlow();
+		generateCodeStream();
+	}
+
+	// Animation 6: Design Digital - Creative canvas with shapes
+	function createDesignAnimation(container) {
+		const width = 280;
+		const height = 200;
+
+		const svg = d3.select(container)
+			.append('svg')
+			.attr('width', width)
+			.attr('height', height)
+			.attr('viewBox', `0 0 ${width} ${height}`);
+
+		const centerX = width / 2;
+		const centerY = height / 2;
+		const colors = ['#3B82F6', '#EF4444', '#10B981', '#F59E0B', '#8B5CF6'];
+
+		// Canvas frame
+		svg.append('rect')
+			.attr('x', 30)
+			.attr('y', 20)
+			.attr('width', 220)
+			.attr('height', 160)
+			.attr('rx', 4)
+			.attr('fill', 'none')
+			.attr('stroke', '#334155')
+			.attr('stroke-width', 2)
+			.attr('opacity', 0.4);
+
+		// Color palette
+		const paletteY = [40, 70, 100, 130, 160];
+		svg.selectAll('.palette-color')
+			.data(colors)
+			.enter()
+			.append('circle')
+			.attr('cx', 15)
+			.attr('cy', (d, i) => paletteY[i])
+			.attr('r', 6)
+			.attr('fill', d => d)
+			.attr('stroke', '#1E293B')
+			.attr('stroke-width', 1.5)
+			.attr('opacity', 0.8);
+
+		const designGroup = svg.append('g')
+			.attr('transform', 'translate(30, 20)');
+
+		const shapes = [
+			{ type: 'circle', x: 50, y: 40, r: 20 },
+			{ type: 'rect', x: 120, y: 25, width: 40, height: 40 },
+			{ type: 'triangle', x: 180, y: 50 }
+		];
+
+		// Animated circle
+		const circle = designGroup.append('circle')
+			.attr('cx', shapes[0].x)
+			.attr('cy', shapes[0].y)
+			.attr('r', 0)
+			.attr('fill', colors[0])
+			.attr('opacity', 0.6);
+
+		function animateCircle() {
+			circle.transition()
+				.duration(2000)
+				.attr('r', shapes[0].r)
+				.attr('fill', colors[Math.floor(Math.random() * colors.length)])
+				.transition()
+				.duration(2000)
+				.attr('r', 0)
+				.on('end', animateCircle);
+		}
+
+		// Animated rectangle
+		const rect = designGroup.append('rect')
+			.attr('x', shapes[1].x)
+			.attr('y', shapes[1].y)
+			.attr('width', 0)
+			.attr('height', 0)
+			.attr('rx', 4)
+			.attr('fill', colors[1])
+			.attr('opacity', 0.6);
+
+		function animateRect() {
+			rect.transition()
+				.duration(2000)
+				.delay(500)
+				.attr('width', shapes[1].width)
+				.attr('height', shapes[1].height)
+				.attr('fill', colors[Math.floor(Math.random() * colors.length)])
+				.transition()
+				.duration(2000)
+				.attr('width', 0)
+				.attr('height', 0)
+				.attr('x', shapes[1].x + shapes[1].width / 2)
+				.attr('y', shapes[1].y + shapes[1].height / 2)
+				.on('end', function() {
+					d3.select(this)
+						.attr('x', shapes[1].x)
+						.attr('y', shapes[1].y);
+					animateRect();
+				});
+		}
+
+		// Animated triangle
+		const trianglePoints = [
+			[shapes[2].x, shapes[2].y - 20],
+			[shapes[2].x - 20, shapes[2].y + 15],
+			[shapes[2].x + 20, shapes[2].y + 15]
+		];
+
+		const triangle = designGroup.append('polygon')
+			.attr('points', `${shapes[2].x},${shapes[2].y}`)
+			.attr('fill', colors[2])
+			.attr('opacity', 0.6);
+
+		function animateTriangle() {
+			triangle.transition()
+				.duration(2000)
+				.delay(1000)
+				.attr('points', trianglePoints.map(p => p.join(',')).join(' '))
+				.attr('fill', colors[Math.floor(Math.random() * colors.length)])
+				.transition()
+				.duration(2000)
+				.attr('points', `${shapes[2].x},${shapes[2].y}`)
+				.on('end', animateTriangle);
+		}
+
+		// Bezier curves
+		const curveGroup = designGroup.append('g');
+
+		function createCurve() {
+			const startX = Math.random() * 220;
+			const startY = Math.random() * 160;
+			const endX = Math.random() * 220;
+			const endY = Math.random() * 160;
+			const cp1X = Math.random() * 220;
+			const cp1Y = Math.random() * 160;
+
+			const pathData = `M ${startX} ${startY} Q ${cp1X} ${cp1Y} ${endX} ${endY}`;
+
+			const curve = curveGroup.append('path')
+				.attr('d', pathData)
+				.attr('fill', 'none')
+				.attr('stroke', colors[Math.floor(Math.random() * colors.length)])
+				.attr('stroke-width', 2)
+				.attr('opacity', 0);
+
+			const pathLength = curve.node().getTotalLength();
+
+			curve
+				.attr('stroke-dasharray', pathLength)
+				.attr('stroke-dashoffset', pathLength)
+				.transition()
+				.duration(2000)
+				.attr('opacity', 0.4)
+				.attr('stroke-dashoffset', 0)
+				.transition()
+				.duration(1000)
+				.attr('opacity', 0)
+				.on('end', function() {
+					d3.select(this).remove();
+				});
+		}
+
+		animateCircle();
+		animateRect();
+		animateTriangle();
+		setInterval(createCurve, 1500);
+		createCurve();
+	}
+
 	// Initialize animations with Intersection Observer for better performance
 	const serviceCards = document.querySelectorAll('.service-card');
 
 	if (serviceCards.length >= 3) {
 		// Map of service cards to their animation functions
 		const animationMap = [
-			createMediaPagaAnimation,     // Service 1: Mídia Paga
+			createMediaPagaAnimation,      // Service 1: Mídia Paga
 			createAutomacaoAnimation,      // Service 2: Automação
 			createAnaliseAnimation,        // Service 3: Análise de Dados
-			createSitesAnimation           // Service 4: Sites e Landing Pages
+			createSitesAnimation,          // Service 4: Sites e Landing Pages
+			createSoftwaresAnimation,      // Service 5: Softwares Personalizados
+			createDesignAnimation          // Service 6: Design Digital
 		];
 
 		// Use Intersection Observer to only initialize animations when visible

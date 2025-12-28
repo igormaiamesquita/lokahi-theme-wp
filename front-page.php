@@ -136,6 +136,50 @@ get_header();
 						</svg>
 					</a>
 				</article>
+
+				<!-- Service 5 -->
+				<article class="service-card" data-animate="service">
+					<div class="service-illustration"></div>
+					<div class="service-icon-badge">
+						<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<polyline points="16 18 22 12 16 6"></polyline>
+							<polyline points="8 6 2 12 8 18"></polyline>
+						</svg>
+					</div>
+					<h3 class="service-title">Softwares Personalizados</h3>
+					<p class="service-description">
+						Desenvolvimento de soluções sob medida com arquitetura escalável e código otimizado. Sistemas robustos que crescem junto com seu negócio.
+					</p>
+					<a href="#contato" class="service-btn">
+						<span>Vamos conversar</span>
+						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<polyline points="9 18 15 12 9 6"></polyline>
+						</svg>
+					</a>
+				</article>
+
+				<!-- Service 6 -->
+				<article class="service-card" data-animate="service">
+					<div class="service-illustration"></div>
+					<div class="service-icon-badge">
+						<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+							<path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+							<path d="M2 2l7.586 7.586"></path>
+							<circle cx="11" cy="11" r="2"></circle>
+						</svg>
+					</div>
+					<h3 class="service-title">Design Digital</h3>
+					<p class="service-description">
+						Design estratégico que converte. Branding, interfaces e materiais visuais pensados para engajamento e impacto mensurável.
+					</p>
+					<a href="#contato" class="service-btn">
+						<span>Vamos conversar</span>
+						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<polyline points="9 18 15 12 9 6"></polyline>
+						</svg>
+					</a>
+				</article>
 			</div><!-- .services-grid -->
 		</div><!-- .services-container -->
 	</section><!-- .services-section -->
