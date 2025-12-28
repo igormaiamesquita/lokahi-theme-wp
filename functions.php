@@ -158,6 +158,9 @@ function lokahi_digital_scripts() {
 	// Globe script (depends on D3 and TopoJSON)
 	wp_enqueue_script( 'lokahi-digital-globe', get_template_directory_uri() . '/js/globe.js', array( 'd3-js', 'topojson-js' ), _S_VERSION, true );
 
+	// Service animations script (depends on D3)
+	wp_enqueue_script( 'lokahi-digital-service-animations', get_template_directory_uri() . '/js/service-animations.js', array( 'd3-js' ), _S_VERSION, true );
+
 	// Custom animations script (depends on anime.js)
 	wp_enqueue_script( 'lokahi-digital-animations', get_template_directory_uri() . '/js/animations.js', array( 'anime-js' ), _S_VERSION, true );
 

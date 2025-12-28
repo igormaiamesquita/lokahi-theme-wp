@@ -54,23 +54,30 @@ get_header();
 			<div class="services-grid">
 				<!-- Service 1 -->
 				<article class="service-card" data-animate="service">
-					<div class="service-icon">
-						<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<div class="service-illustration"></div>
+					<div class="service-icon-badge">
+						<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 							<circle cx="12" cy="12" r="10"></circle>
 							<polyline points="12 6 12 12 16 14"></polyline>
 						</svg>
 					</div>
 					<h3 class="service-title">Mídia Paga</h3>
 					<p class="service-description">
-						Gestão técnica e estratégica de campanhas em Google Ads, Meta Ads e LinkedIn Ads.
-						Foco em performance, otimização contínua e ROI mensurável.
+						Gestão técnica e estratégica de campanhas em Google Ads, Meta Ads e LinkedIn Ads com foco em performance e ROI mensurável.
 					</p>
+					<a href="#contato" class="service-btn">
+						<span>Vamos conversar</span>
+						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<polyline points="9 18 15 12 9 6"></polyline>
+						</svg>
+					</a>
 				</article>
 
 				<!-- Service 2 -->
 				<article class="service-card" data-animate="service">
-					<div class="service-icon">
-						<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<div class="service-illustration"></div>
+					<div class="service-icon-badge">
+						<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 							<rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
 							<line x1="9" y1="9" x2="15" y2="9"></line>
 							<line x1="9" y1="15" x2="15" y2="15"></line>
@@ -78,29 +85,41 @@ get_header();
 					</div>
 					<h3 class="service-title">Automação e Integrações</h3>
 					<p class="service-description">
-						Implementação de automações de marketing, integração de ferramentas e sistemas.
-						Fluxos inteligentes que conectam dados e geram eficiência.
+						Implementação de automações de marketing e integração de ferramentas. Fluxos inteligentes que conectam dados e geram eficiência.
 					</p>
+					<a href="#contato" class="service-btn">
+						<span>Vamos conversar</span>
+						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<polyline points="9 18 15 12 9 6"></polyline>
+						</svg>
+					</a>
 				</article>
 
 				<!-- Service 3 -->
 				<article class="service-card" data-animate="service">
-					<div class="service-icon">
-						<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<div class="service-illustration"></div>
+					<div class="service-icon-badge">
+						<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 							<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
 						</svg>
 					</div>
 					<h3 class="service-title">Análise de Dados</h3>
 					<p class="service-description">
-						Configuração de tracking, análise de comportamento e construção de dashboards.
-						Transformamos dados em insights acionáveis e decisões estratégicas.
+						Configuração de tracking, análise de comportamento e construção de dashboards. Transformamos dados em insights acionáveis.
 					</p>
+					<a href="#contato" class="service-btn">
+						<span>Vamos conversar</span>
+						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<polyline points="9 18 15 12 9 6"></polyline>
+						</svg>
+					</a>
 				</article>
 
 				<!-- Service 4 -->
 				<article class="service-card" data-animate="service">
-					<div class="service-icon">
-						<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<div class="service-illustration"></div>
+					<div class="service-icon-badge">
+						<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 							<rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
 							<line x1="8" y1="21" x2="16" y2="21"></line>
 							<line x1="12" y1="17" x2="12" y2="21"></line>
@@ -108,9 +127,14 @@ get_header();
 					</div>
 					<h3 class="service-title">Sites e Landing Pages</h3>
 					<p class="service-description">
-						Desenvolvimento focado em conversão, performance e experiência.
-						Páginas rápidas, responsivas e orientadas a resultados.
+						Desenvolvimento focado em conversão, performance e experiência. Páginas rápidas, responsivas e orientadas a resultados.
 					</p>
+					<a href="#contato" class="service-btn">
+						<span>Vamos conversar</span>
+						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<polyline points="9 18 15 12 9 6"></polyline>
+						</svg>
+					</a>
 				</article>
 			</div><!-- .services-grid -->
 		</div><!-- .services-container -->
