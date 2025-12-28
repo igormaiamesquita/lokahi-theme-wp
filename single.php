@@ -168,43 +168,6 @@ get_header();
 				endif;
 				?>
 
-				<nav class="post-navigation">
-					<div class="post-navigation-container">
-						<?php
-						$prev_post = get_previous_post();
-						$next_post = get_next_post();
-						?>
-
-						<?php if ( $prev_post ) : ?>
-							<div class="nav-previous">
-								<span class="nav-label">
-									<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-										<polyline points="15 18 9 12 15 6"></polyline>
-									</svg>
-									Post Anterior
-								</span>
-								<a href="<?php echo esc_url( get_permalink( $prev_post ) ); ?>" class="nav-title">
-									<?php echo esc_html( get_the_title( $prev_post ) ); ?>
-								</a>
-							</div>
-						<?php endif; ?>
-
-						<?php if ( $next_post ) : ?>
-							<div class="nav-next">
-								<span class="nav-label">
-									Próximo Post
-									<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-										<polyline points="9 18 15 12 9 6"></polyline>
-									</svg>
-								</span>
-								<a href="<?php echo esc_url( get_permalink( $next_post ) ); ?>" class="nav-title">
-									<?php echo esc_html( get_the_title( $next_post ) ); ?>
-								</a>
-							</div>
-						<?php endif; ?>
-					</div>
-				</nav><!-- .post-navigation -->
-
 			</article><!-- #post-<?php the_ID(); ?> -->
 
 			<?php
