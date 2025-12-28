@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		pulseDashboard();
 	}
 
-	// Animation 2: Automação - Data flow through processing
+	// Animation 2: Automação - Integrated systems with data flow
 	function createAutomacaoAnimation(container) {
 		const width = 280;
 		const height = 200;
@@ -162,169 +162,245 @@ document.addEventListener('DOMContentLoaded', function() {
 		const centerX = width / 2;
 		const centerY = height / 2;
 
-		// Input shapes (left side)
-		const inputShapes = [
-			{ type: 'polygon', points: '20,60 30,70 20,80', y: 70 },  // Triangle
-			{ type: 'rect', x: 15, y: 95, width: 20, height: 20 },
-			{ type: 'circle', cx: 25, cy: 130, r: 10 },
-			{ type: 'polygon', points: '15,150 25,155 15,160', y: 155 }
+		// System nodes (representing different tools/platforms)
+		const systems = [
+			{ id: 'crm', x: 50, y: 60, color: '#3B82F6', label: 'CRM' },
+			{ id: 'ads', x: 230, y: 60, color: '#EF4444', label: 'ADS' },
+			{ id: 'analytics', x: 50, y: 140, color: '#10B981', label: 'DATA' },
+			{ id: 'email', x: 230, y: 140, color: '#F59E0B', label: 'EMAIL' }
 		];
 
-		// Output shapes (right side)
-		const outputShapes = [
-			{ type: 'rect', x: 245, y: 60, width: 20, height: 20 },
-			{ type: 'circle', cx: 255, cy: 95, r: 10 },
-			{ type: 'polygon', points: '250,115 260,120 250,125', y: 120 },
-			{ type: 'polygon', points: '245,140 255,145 245,150', y: 145 }
-		];
+		// Central automation hub
+		const hub = svg.append('g')
+			.attr('class', 'automation-hub');
 
-		// Draw input shapes
-		inputShapes.forEach((shape, i) => {
-			const element = svg.append(shape.type);
+		// Hub outer circle
+		hub.append('circle')
+			.attr('cx', centerX)
+			.attr('cy', centerY)
+			.attr('r', 35)
+			.attr('fill', 'none')
+			.attr('stroke', '#3B82F6')
+			.attr('stroke-width', 2)
+			.attr('stroke-dasharray', '5,5');
 
-			if (shape.type === 'circle') {
-				element.attr('cx', shape.cx)
-					.attr('cy', shape.cy)
-					.attr('r', shape.r);
-			} else if (shape.type === 'rect') {
-				element.attr('x', shape.x)
-					.attr('y', shape.y)
-					.attr('width', shape.width)
-					.attr('height', shape.height);
-			} else if (shape.type === 'polygon') {
-				element.attr('points', shape.points);
-			}
+		// Hub inner gear (simplified)
+		const gearGroup = hub.append('g')
+			.attr('transform', `translate(${centerX}, ${centerY})`);
 
-			element.attr('fill', 'none')
-				.attr('stroke', '#64748B')
-				.attr('stroke-width', 2)
-				.attr('opacity', 0)
-				.transition()
-				.delay(i * 200)
-				.duration(600)
-				.attr('opacity', 1);
-		});
+		// Create gear teeth
+		const teethCount = 8;
+		for (let i = 0; i < teethCount; i++) {
+			const angle = (i * 360 / teethCount) * (Math.PI / 180);
+			const innerRadius = 15;
+			const outerRadius = 22;
 
-		// Draw output shapes
-		outputShapes.forEach((shape, i) => {
-			const element = svg.append(shape.type);
+			const x1 = Math.cos(angle) * innerRadius;
+			const y1 = Math.sin(angle) * innerRadius;
+			const x2 = Math.cos(angle) * outerRadius;
+			const y2 = Math.sin(angle) * outerRadius;
 
-			if (shape.type === 'circle') {
-				element.attr('cx', shape.cx)
-					.attr('cy', shape.cy)
-					.attr('r', shape.r);
-			} else if (shape.type === 'rect') {
-				element.attr('x', shape.x)
-					.attr('y', shape.y)
-					.attr('width', shape.width)
-					.attr('height', shape.height);
-			} else if (shape.type === 'polygon') {
-				element.attr('points', shape.points);
-			}
+			gearGroup.append('line')
+				.attr('x1', x1)
+				.attr('y1', y1)
+				.attr('x2', x2)
+				.attr('y2', y2)
+				.attr('stroke', '#3B82F6')
+				.attr('stroke-width', 3)
+				.attr('stroke-linecap', 'round');
+		}
 
-			element.attr('fill', 'none')
-				.attr('stroke', '#64748B')
-				.attr('stroke-width', 2)
-				.attr('opacity', 0)
-				.transition()
-				.delay(i * 200 + 1000)
-				.duration(600)
-				.attr('opacity', 1);
-		});
-
-		// Central processing box
-		const processingBox = svg.append('rect')
-			.attr('x', centerX - 40)
-			.attr('y', centerY - 40)
-			.attr('width', 80)
-			.attr('height', 80)
-			.attr('rx', 4)
+		// Inner circle
+		gearGroup.append('circle')
+			.attr('r', 15)
 			.attr('fill', 'none')
 			.attr('stroke', '#3B82F6')
 			.attr('stroke-width', 2);
 
-		// Processing dots grid
-		const dotGrid = [];
-		for (let row = 0; row < 4; row++) {
-			for (let col = 0; col < 4; col++) {
-				dotGrid.push({
-					x: centerX - 25 + col * 17,
-					y: centerY - 25 + row * 17
+		// Center dot
+		gearGroup.append('circle')
+			.attr('r', 4)
+			.attr('fill', '#3B82F6');
+
+		// Rotate gear continuously
+		function rotateGear() {
+			gearGroup
+				.transition()
+				.duration(4000)
+				.ease(d3.easeLinear)
+				.attr('transform', `translate(${centerX}, ${centerY}) rotate(360)`)
+				.on('end', function() {
+					gearGroup.attr('transform', `translate(${centerX}, ${centerY}) rotate(0)`);
+					rotateGear();
 				});
-			}
 		}
 
-		svg.selectAll('.processing-dot')
-			.data(dotGrid)
-			.enter()
-			.append('circle')
-			.attr('class', 'processing-dot')
-			.attr('cx', d => d.x)
-			.attr('cy', d => d.y)
-			.attr('r', 2)
-			.attr('fill', '#3B82F6')
-			.attr('opacity', 0.3);
+		rotateGear();
 
-		// Animate processing dots
-		function animateDots() {
-			svg.selectAll('.processing-dot')
+		// Pulse hub outer circle
+		function pulseHub() {
+			hub.select('circle:first-child')
 				.transition()
-				.duration(400)
-				.delay((d, i) => i * 50)
+				.duration(2000)
+				.attr('r', 40)
+				.attr('opacity', 0.6)
+				.transition()
+				.duration(2000)
+				.attr('r', 35)
 				.attr('opacity', 1)
-				.attr('r', 3)
+				.on('end', pulseHub);
+		}
+
+		pulseHub();
+
+		// Draw system nodes
+		const systemGroups = svg.selectAll('.system-node')
+			.data(systems)
+			.enter()
+			.append('g')
+			.attr('class', 'system-node')
+			.attr('transform', d => `translate(${d.x}, ${d.y})`);
+
+		// System boxes
+		systemGroups.append('rect')
+			.attr('x', -25)
+			.attr('y', -15)
+			.attr('width', 50)
+			.attr('height', 30)
+			.attr('rx', 4)
+			.attr('fill', 'none')
+			.attr('stroke', d => d.color)
+			.attr('stroke-width', 2);
+
+		// System labels
+		systemGroups.append('text')
+			.attr('text-anchor', 'middle')
+			.attr('dy', '0.35em')
+			.attr('fill', d => d.color)
+			.attr('font-size', '10px')
+			.attr('font-weight', 'bold')
+			.text(d => d.label);
+
+		// Connection lines (initially hidden)
+		const connections = [];
+		systems.forEach(system => {
+			const line = svg.append('line')
+				.attr('x1', system.x)
+				.attr('y1', system.y)
+				.attr('x2', centerX)
+				.attr('y2', centerY)
+				.attr('stroke', system.color)
+				.attr('stroke-width', 2)
+				.attr('opacity', 0)
+				.attr('stroke-dasharray', '4,4');
+
+			connections.push({ line, system });
+		});
+
+		// Animate connections and data flow
+		let connectionIndex = 0;
+
+		function animateConnection() {
+			const conn = connections[connectionIndex];
+			const system = conn.system;
+
+			// Show connection
+			conn.line
 				.transition()
-				.duration(400)
-				.attr('opacity', 0.3)
+				.duration(300)
+				.attr('opacity', 0.6)
+				.attr('stroke-width', 2.5);
+
+			// Create data packet
+			const packet = svg.append('circle')
+				.attr('cx', system.x)
+				.attr('cy', system.y)
+				.attr('r', 4)
+				.attr('fill', system.color)
+				.style('filter', 'drop-shadow(0 0 4px ' + system.color + ')');
+
+			// Animate packet to hub
+			packet
+				.transition()
+				.duration(1000)
+				.ease(d3.easeCubicInOut)
+				.attr('cx', centerX)
+				.attr('cy', centerY)
 				.attr('r', 2)
+				.on('end', function() {
+					d3.select(this).remove();
+
+					// Hide connection after packet arrives
+					conn.line
+						.transition()
+						.duration(300)
+						.attr('opacity', 0)
+						.attr('stroke-width', 2);
+
+					// Create output packets to other systems
+					const otherSystems = systems.filter(s => s.id !== system.id);
+
+					otherSystems.forEach((targetSystem, i) => {
+						setTimeout(() => {
+							const outPacket = svg.append('circle')
+								.attr('cx', centerX)
+								.attr('cy', centerY)
+								.attr('r', 2)
+								.attr('fill', '#3B82F6')
+								.style('filter', 'drop-shadow(0 0 4px #3B82F6)');
+
+							outPacket
+								.transition()
+								.duration(800)
+								.ease(d3.easeCubicOut)
+								.attr('cx', targetSystem.x)
+								.attr('cy', targetSystem.y)
+								.attr('r', 4)
+								.attr('fill', targetSystem.color)
+								.on('end', function() {
+									// Flash target system
+									systemGroups.filter(g => g.id === targetSystem.id)
+										.select('rect')
+										.transition()
+										.duration(200)
+										.attr('fill', targetSystem.color)
+										.attr('fill-opacity', 0.2)
+										.transition()
+										.duration(200)
+										.attr('fill', 'none');
+
+									d3.select(this).remove();
+								});
+						}, i * 150);
+					});
+				});
+
+			// Move to next connection
+			connectionIndex = (connectionIndex + 1) % connections.length;
+			setTimeout(animateConnection, 2500);
+		}
+
+		// Start animation after delay
+		setTimeout(animateConnection, 1000);
+
+		// Pulse system nodes
+		function pulseNodes() {
+			systemGroups.selectAll('rect')
+				.transition()
+				.duration(2000)
+				.delay((d, i) => i * 500)
+				.attr('stroke-width', 3)
+				.transition()
+				.duration(2000)
+				.attr('stroke-width', 2)
 				.on('end', function(d, i) {
-					if (i === dotGrid.length - 1) {
-						setTimeout(animateDots, 1000);
+					if (i === systems.length - 1) {
+						setTimeout(pulseNodes, 3000);
 					}
 				});
 		}
 
-		animateDots();
-
-		// Flow arrows
-		const arrow1 = svg.append('path')
-			.attr('d', `M 60 ${centerY} L ${centerX - 45} ${centerY}`)
-			.attr('fill', 'none')
-			.attr('stroke', '#3B82F6')
-			.attr('stroke-width', 2)
-			.attr('marker-end', 'url(#arrowhead1)');
-
-		const arrow2 = svg.append('path')
-			.attr('d', `M ${centerX + 45} ${centerY} L 220 ${centerY}`)
-			.attr('fill', 'none')
-			.attr('stroke', '#EF4444')
-			.attr('stroke-width', 2)
-			.attr('marker-end', 'url(#arrowhead2)');
-
-		// Define arrow markers
-		const defs = svg.append('defs');
-
-		defs.append('marker')
-			.attr('id', 'arrowhead1')
-			.attr('markerWidth', 10)
-			.attr('markerHeight', 10)
-			.attr('refX', 9)
-			.attr('refY', 3)
-			.attr('orient', 'auto')
-			.append('polygon')
-			.attr('points', '0 0, 10 3, 0 6')
-			.attr('fill', '#3B82F6');
-
-		defs.append('marker')
-			.attr('id', 'arrowhead2')
-			.attr('markerWidth', 10)
-			.attr('markerHeight', 10)
-			.attr('refX', 9)
-			.attr('refY', 3)
-			.attr('orient', 'auto')
-			.append('polygon')
-			.attr('points', '0 0, 10 3, 0 6')
-			.attr('fill', '#EF4444');
+		pulseNodes();
 	}
 
 	// Animation 3: Análise de Dados - Neural network / reranker
