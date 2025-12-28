@@ -65,7 +65,7 @@ get_header();
 					<p class="service-description">
 						Gestão técnica e estratégica de campanhas em Google Ads, Meta Ads e LinkedIn Ads com foco em performance e ROI mensurável.
 					</p>
-					<a href="#contato" class="service-btn">
+					<a href="https://wa.me/5511991585963" target="_blank" rel="noopener noreferrer" class="service-btn">
 						<span>Vamos conversar</span>
 						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 							<polyline points="9 18 15 12 9 6"></polyline>
@@ -87,7 +87,7 @@ get_header();
 					<p class="service-description">
 						Implementação de automações de marketing e integração de ferramentas. Fluxos inteligentes que conectam dados e geram eficiência.
 					</p>
-					<a href="#contato" class="service-btn">
+					<a href="https://wa.me/5511991585963" target="_blank" rel="noopener noreferrer" class="service-btn">
 						<span>Vamos conversar</span>
 						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 							<polyline points="9 18 15 12 9 6"></polyline>
@@ -107,7 +107,7 @@ get_header();
 					<p class="service-description">
 						Configuração de tracking, análise de comportamento e construção de dashboards. Transformamos dados em insights acionáveis.
 					</p>
-					<a href="#contato" class="service-btn">
+					<a href="https://wa.me/5511991585963" target="_blank" rel="noopener noreferrer" class="service-btn">
 						<span>Vamos conversar</span>
 						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 							<polyline points="9 18 15 12 9 6"></polyline>
@@ -129,7 +129,7 @@ get_header();
 					<p class="service-description">
 						Desenvolvimento focado em conversão, performance e experiência. Páginas rápidas, responsivas e orientadas a resultados.
 					</p>
-					<a href="#contato" class="service-btn">
+					<a href="https://wa.me/5511991585963" target="_blank" rel="noopener noreferrer" class="service-btn">
 						<span>Vamos conversar</span>
 						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 							<polyline points="9 18 15 12 9 6"></polyline>
@@ -150,7 +150,7 @@ get_header();
 					<p class="service-description">
 						Desenvolvimento de soluções sob medida com arquitetura escalável e código otimizado. Sistemas robustos que crescem junto com seu negócio.
 					</p>
-					<a href="#contato" class="service-btn">
+					<a href="https://wa.me/5511991585963" target="_blank" rel="noopener noreferrer" class="service-btn">
 						<span>Vamos conversar</span>
 						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 							<polyline points="9 18 15 12 9 6"></polyline>
@@ -173,7 +173,7 @@ get_header();
 					<p class="service-description">
 						Design estratégico que converte. Branding, interfaces e materiais visuais pensados para engajamento e impacto mensurável.
 					</p>
-					<a href="#contato" class="service-btn">
+					<a href="https://wa.me/5511991585963" target="_blank" rel="noopener noreferrer" class="service-btn">
 						<span>Vamos conversar</span>
 						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 							<polyline points="9 18 15 12 9 6"></polyline>
