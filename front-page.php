@@ -31,13 +31,9 @@ get_header();
 				</div>
 			</div>
 
-			<!-- Hero Visual - Animated Planet -->
+			<!-- Hero Visual - Interactive Globe -->
 			<div class="hero-visual">
-				<div class="planet-container">
-					<div class="planet-glow"></div>
-					<div class="planet"></div>
-					<div class="planet-ring"></div>
-				</div>
+				<div class="globe-container"></div>
 			</div>
 		</div>
 	</section><!-- .hero-section -->

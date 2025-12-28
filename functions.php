@@ -143,11 +143,20 @@ function lokahi_digital_scripts() {
 	wp_enqueue_style( 'lokahi-digital-style', get_stylesheet_uri(), array(), _S_VERSION );
 	wp_style_add_data( 'lokahi-digital-style', 'rtl', 'replace' );
 
+	// D3.js library from CDN
+	wp_enqueue_script( 'd3-js', 'https://cdn.jsdelivr.net/npm/d3@7', array(), '7', true );
+
+	// TopoJSON library from CDN (required for globe)
+	wp_enqueue_script( 'topojson-js', 'https://cdn.jsdelivr.net/npm/topojson-client@3', array(), '3', true );
+
 	// Anime.js library from CDN
 	wp_enqueue_script( 'anime-js', 'https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js', array(), '3.2.1', true );
 
 	// Navigation script
 	wp_enqueue_script( 'lokahi-digital-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
+
+	// Globe script (depends on D3 and TopoJSON)
+	wp_enqueue_script( 'lokahi-digital-globe', get_template_directory_uri() . '/js/globe.js', array( 'd3-js', 'topojson-js' ), _S_VERSION, true );
 
 	// Custom animations script (depends on anime.js)
 	wp_enqueue_script( 'lokahi-digital-animations', get_template_directory_uri() . '/js/animations.js', array( 'anime-js' ), _S_VERSION, true );
