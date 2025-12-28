@@ -395,6 +395,25 @@ p {
 	opacity: 1 !important;
 }
 
+/* Globe country label */
+.globe-country-label {
+	margin-top: var(--spacing-lg);
+	text-align: center;
+}
+
+.globe-country-text {
+	font-size: var(--font-size-lg);
+	color: var(--color-text-light);
+	letter-spacing: 0.02em;
+}
+
+.globe-country-text strong {
+	color: var(--color-primary);
+	font-weight: 600;
+	font-size: var(--font-size-xl);
+	transition: opacity 0.3s ease;
+}
+
 /*--------------------------------------------------------------
 # Services Section
 --------------------------------------------------------------*/

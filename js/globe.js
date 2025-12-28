@@ -41,6 +41,15 @@
 			[-77.0369, 38.9072],   // Estados Unidos (Washington DC)
 		];
 
+		// Country names in Portuguese
+		const countryNames = [
+			'Brasil',
+			'Japão',
+			'Portugal',
+			'Panamá',
+			'Estados Unidos'
+		];
+
 		// Create SVG
 		const svg = d3.select('.globe-container')
 			.append('svg')
@@ -161,12 +170,24 @@
 				const transitionDuration = 2500;
 				let isAnimating = false;
 
+				// Function to update country name display
+				function updateCountryName(index) {
+					const countryElement = document.getElementById('current-country');
+					if (countryElement) {
+						countryElement.textContent = countryNames[index];
+					}
+				}
+
 				function transition() {
 					if (isAnimating) return;
 
 					isAnimating = true;
 					const from = locations[currentIndex];
 					const to = locations[(currentIndex + 1) % locations.length];
+					const nextIndex = (currentIndex + 1) % locations.length;
+
+					// Update country name to show destination
+					updateCountryName(nextIndex);
 
 					// Interpolate between locations
 					const interpolate = d3.geoInterpolate(from, to);

@@ -34,6 +34,9 @@ get_header();
 			<!-- Hero Visual - Interactive Globe -->
 			<div class="hero-visual">
 				<div class="globe-container"></div>
+				<div class="globe-country-label">
+					<span class="globe-country-text">Trabalhos realizados em <strong id="current-country">Brasil</strong></span>
+				</div>
 			</div>
 		</div>
 	</section><!-- .hero-section -->
