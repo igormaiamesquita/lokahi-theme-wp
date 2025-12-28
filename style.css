@@ -1881,3 +1881,44 @@ p {
 		align-items: flex-start;
 	}
 }
+
+/* Make thumbnails clearly clickable */
+.archive-post-card .post-thumbnail a {
+	display: block;
+	position: relative;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.archive-post-card .post-thumbnail a::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(239, 68, 68, 0.2) 100%);
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.archive-post-card .post-thumbnail a:hover::after {
+	opacity: 1;
+}
+
+.search-result-card .result-thumbnail a {
+	display: block;
+	position: relative;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.search-result-card .result-thumbnail a::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(239, 68, 68, 0.2) 100%);
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.search-result-card .result-thumbnail a:hover::after {
+	opacity: 1;
+}
