@@ -5,7 +5,7 @@
 
 document.addEventListener('DOMContentLoaded', function() {
 
-	// Animation 1: Mídia Paga - Dashboard with orbiting metrics
+	// Animation 1: Mídia Paga - Performance metrics with growth chart
 	function createMediaPagaAnimation(container) {
 		const width = 280;
 		const height = 200;
@@ -19,133 +19,256 @@ document.addEventListener('DOMContentLoaded', function() {
 		const centerX = width / 2;
 		const centerY = height / 2;
 
-		// Central dashboard rectangle
-		const dashboard = svg.append('rect')
-			.attr('x', centerX - 50)
-			.attr('y', centerY - 35)
-			.attr('width', 100)
-			.attr('height', 70)
-			.attr('rx', 4)
-			.attr('fill', 'none')
-			.attr('stroke', '#3B82F6')
-			.attr('stroke-width', 2);
-
-		// Dashboard elements (search bar and content lines)
-		svg.append('rect')
-			.attr('x', centerX - 40)
-			.attr('y', centerY - 25)
-			.attr('width', 80)
-			.attr('height', 10)
-			.attr('rx', 2)
-			.attr('fill', 'none')
-			.attr('stroke', '#3B82F6')
-			.attr('stroke-width', 1);
-
-		// Content lines
-		[5, 15].forEach(offset => {
-			svg.append('line')
-				.attr('x1', centerX - 40)
-				.attr('y1', centerY + offset)
-				.attr('x2', centerX + 40)
-				.attr('y2', centerY + offset)
-				.attr('stroke', '#64748B')
-				.attr('stroke-width', 1.5);
-		});
-
-		// Small PDF icon
-		svg.append('rect')
-			.attr('x', centerX + 20)
-			.attr('y', centerY + 5)
-			.attr('width', 15)
-			.attr('height', 18)
-			.attr('rx', 1)
-			.attr('fill', 'none')
-			.attr('stroke', '#EF4444')
-			.attr('stroke-width', 1.5);
-
-		svg.append('text')
-			.attr('x', centerX + 27.5)
-			.attr('y', centerY + 18)
-			.attr('text-anchor', 'middle')
-			.attr('fill', '#EF4444')
-			.attr('font-size', '8px')
-			.attr('font-weight', 'bold')
-			.text('PDF');
-
-		// Orbiting icons data
-		const orbitIcons = [
-			{ icon: 'AI', angle: 0, radius: 90, color: '#3B82F6' },
-			{ icon: 'M', angle: 90, radius: 90, color: '#64748B' },
-			{ icon: '✦', angle: 180, radius: 90, color: '#EF4444' },
-			{ icon: '⚡', angle: 270, radius: 90, color: '#3B82F6' }
+		// Platform badges (Google, Meta, LinkedIn)
+		const platforms = [
+			{ name: 'G', x: 40, y: 40, color: '#3B82F6' },
+			{ name: 'M', x: centerX, y: 35, color: '#EF4444' },
+			{ name: 'in', x: 240, y: 40, color: '#10B981' }
 		];
 
-		// Create orbiting icon groups
-		const iconGroups = svg.selectAll('.orbit-icon')
-			.data(orbitIcons)
+		const platformGroups = svg.selectAll('.platform')
+			.data(platforms)
 			.enter()
 			.append('g')
-			.attr('class', 'orbit-icon');
+			.attr('class', 'platform')
+			.attr('transform', d => `translate(${d.x}, ${d.y})`);
 
-		// Add circles for icons
-		iconGroups.append('circle')
-			.attr('r', 18)
+		platformGroups.append('circle')
+			.attr('r', 15)
 			.attr('fill', 'none')
 			.attr('stroke', d => d.color)
 			.attr('stroke-width', 2);
 
-		// Add icon text/symbols
-		iconGroups.append('text')
+		platformGroups.append('text')
 			.attr('text-anchor', 'middle')
 			.attr('dy', '0.35em')
 			.attr('fill', d => d.color)
 			.attr('font-size', '12px')
 			.attr('font-weight', 'bold')
-			.text(d => d.icon);
+			.text(d => d.name);
 
-		// Add connecting lines
-		const connections = iconGroups.append('line')
-			.attr('x1', 0)
-			.attr('y1', 0)
-			.attr('x2', centerX)
-			.attr('y2', centerY)
-			.attr('stroke', d => d.color)
-			.attr('stroke-width', 1)
-			.attr('stroke-dasharray', '3,3')
-			.attr('opacity', 0.4);
+		// Performance chart area
+		const chartGroup = svg.append('g')
+			.attr('class', 'performance-chart');
 
-		// Animate orbiting icons
-		function animateOrbit() {
-			iconGroups
+		// Chart background
+		chartGroup.append('rect')
+			.attr('x', 60)
+			.attr('y', 80)
+			.attr('width', 160)
+			.attr('height', 100)
+			.attr('rx', 4)
+			.attr('fill', 'none')
+			.attr('stroke', '#334155')
+			.attr('stroke-width', 1.5)
+			.attr('stroke-dasharray', '4,4')
+			.attr('opacity', 0.5);
+
+		// Grid lines
+		[90, 110, 130, 150, 170].forEach(y => {
+			chartGroup.append('line')
+				.attr('x1', 60)
+				.attr('y1', y)
+				.attr('x2', 220)
+				.attr('y2', y)
+				.attr('stroke', '#1E293B')
+				.attr('stroke-width', 1)
+				.attr('opacity', 0.3);
+		});
+
+		// Ascending performance line data
+		const lineData = [
+			{ x: 70, y: 165 },
+			{ x: 100, y: 155 },
+			{ x: 130, y: 140 },
+			{ x: 160, y: 125 },
+			{ x: 190, y: 105 },
+			{ x: 210, y: 90 }
+		];
+
+		// Create line path
+		const lineGenerator = d3.line()
+			.x(d => d.x)
+			.y(d => d.y)
+			.curve(d3.curveMonotoneX);
+
+		const performanceLine = chartGroup.append('path')
+			.datum(lineData)
+			.attr('fill', 'none')
+			.attr('stroke', '#3B82F6')
+			.attr('stroke-width', 3)
+			.attr('d', lineGenerator)
+			.style('filter', 'drop-shadow(0 0 6px rgba(59, 130, 246, 0.6))');
+
+		// Animate line drawing
+		const lineLength = performanceLine.node().getTotalLength();
+
+		performanceLine
+			.attr('stroke-dasharray', lineLength + ' ' + lineLength)
+			.attr('stroke-dashoffset', lineLength);
+
+		function animateLine() {
+			performanceLine
 				.transition()
-				.duration(8000)
-				.ease(d3.easeLinear)
-				.attrTween('transform', function(d) {
-					return function(t) {
-						const angle = (d.angle + t * 360) * (Math.PI / 180);
-						const x = centerX + Math.cos(angle) * d.radius;
-						const y = centerY + Math.sin(angle) * d.radius;
-						return `translate(${x}, ${y})`;
-					};
-				})
-				.on('end', animateOrbit);
+				.duration(2500)
+				.ease(d3.easeQuadInOut)
+				.attr('stroke-dashoffset', 0)
+				.on('end', function() {
+					setTimeout(() => {
+						performanceLine.attr('stroke-dashoffset', lineLength);
+						animateLine();
+					}, 1500);
+				});
 		}
 
-		animateOrbit();
+		animateLine();
 
-		// Pulse dashboard
-		function pulseDashboard() {
-			dashboard
+		// Data points on line
+		const dataPoints = chartGroup.selectAll('.data-point')
+			.data(lineData)
+			.enter()
+			.append('g')
+			.attr('class', 'data-point')
+			.attr('transform', d => `translate(${d.x}, ${d.y})`);
+
+		dataPoints.append('circle')
+			.attr('r', 4)
+			.attr('fill', '#3B82F6')
+			.attr('stroke', '#FFFFFF')
+			.attr('stroke-width', 2);
+
+		// Animate data points sequentially
+		function animatePoints() {
+			dataPoints.selectAll('circle')
+				.attr('r', 0)
 				.transition()
-				.duration(2000)
+				.duration(300)
+				.delay((d, i) => i * 400 + 500)
+				.attr('r', 4)
+				.transition()
+				.duration(200)
+				.attr('r', 6)
+				.transition()
+				.duration(200)
+				.attr('r', 4);
+
+			setTimeout(animatePoints, 5000);
+		}
+
+		animatePoints();
+
+		// ROI/metrics badges
+		const metrics = [
+			{ label: 'ROI', value: '+180%', x: 45, y: 140, color: '#10B981' },
+			{ label: 'CTR', value: '↑ 45%', x: 230, y: 120, color: '#3B82F6' },
+			{ label: 'CPA', value: '↓ 32%', x: 235, y: 160, color: '#EF4444' }
+		];
+
+		const metricGroups = svg.selectAll('.metric-badge')
+			.data(metrics)
+			.enter()
+			.append('g')
+			.attr('class', 'metric-badge')
+			.attr('transform', d => `translate(${d.x}, ${d.y})`);
+
+		metricGroups.append('rect')
+			.attr('x', -22)
+			.attr('y', -12)
+			.attr('width', 44)
+			.attr('height', 24)
+			.attr('rx', 3)
+			.attr('fill', 'rgba(15, 23, 42, 0.8)')
+			.attr('stroke', d => d.color)
+			.attr('stroke-width', 1.5);
+
+		metricGroups.append('text')
+			.attr('text-anchor', 'middle')
+			.attr('dy', '-0.1em')
+			.attr('fill', '#94A3B8')
+			.attr('font-size', '7px')
+			.text(d => d.label);
+
+		metricGroups.append('text')
+			.attr('text-anchor', 'middle')
+			.attr('dy', '0.8em')
+			.attr('fill', d => d.color)
+			.attr('font-size', '9px')
+			.attr('font-weight', 'bold')
+			.text(d => d.value);
+
+		// Pulse metrics
+		function pulseMetrics() {
+			metricGroups.selectAll('rect')
+				.transition()
+				.duration(1000)
+				.delay((d, i) => i * 300)
+				.attr('stroke-width', 2.5)
+				.style('filter', 'drop-shadow(0 0 4px currentColor)')
+				.transition()
+				.duration(1000)
+				.attr('stroke-width', 1.5)
+				.style('filter', 'none')
+				.on('end', function(d, i) {
+					if (i === metrics.length - 1) {
+						setTimeout(pulseMetrics, 2000);
+					}
+				});
+		}
+
+		pulseMetrics();
+
+		// Pulse platform badges
+		function pulsePlatforms() {
+			platformGroups.selectAll('circle')
+				.transition()
+				.duration(1500)
+				.delay((d, i) => i * 500)
+				.attr('r', 18)
 				.attr('stroke-width', 3)
 				.transition()
-				.duration(2000)
+				.duration(1500)
+				.attr('r', 15)
 				.attr('stroke-width', 2)
-				.on('end', pulseDashboard);
+				.on('end', function(d, i) {
+					if (i === platforms.length - 1) {
+						setTimeout(pulsePlatforms, 3000);
+					}
+				});
 		}
 
-		pulseDashboard();
+		pulsePlatforms();
+
+		// Add upward trend arrow
+		const arrowGroup = svg.append('g')
+			.attr('class', 'trend-arrow')
+			.attr('transform', `translate(225, 85)`);
+
+		arrowGroup.append('line')
+			.attr('x1', 0)
+			.attr('y1', 15)
+			.attr('x2', 0)
+			.attr('y2', 0)
+			.attr('stroke', '#10B981')
+			.attr('stroke-width', 2.5)
+			.attr('stroke-linecap', 'round');
+
+		arrowGroup.append('polygon')
+			.attr('points', '-4,3 0,0 4,3')
+			.attr('fill', '#10B981');
+
+		// Pulse arrow
+		function pulseArrow() {
+			arrowGroup
+				.transition()
+				.duration(1000)
+				.attr('transform', 'translate(225, 83) scale(1.2)')
+				.transition()
+				.duration(1000)
+				.attr('transform', 'translate(225, 85) scale(1)')
+				.on('end', pulseArrow);
+		}
+
+		pulseArrow();
 	}
 
 	// Animation 2: Automação - Integrated systems with data flow
