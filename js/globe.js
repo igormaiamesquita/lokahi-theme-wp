@@ -32,14 +32,13 @@
 		const height = 500;
 
 		// World tour locations (longitude, latitude)
-		// Brasil → Japão → Portugal → Panamá → Estados Unidos → Brasil
+		// Brasil → Japão → Portugal → Panamá → Estados Unidos → Brasil (loop)
 		const locations = [
-			{ name: 'Brasil', coordinates: [-47.9292, -15.7801] },      // Brasília
-			{ name: 'Japão', coordinates: [139.6917, 35.6895] },        // Tokyo
-			{ name: 'Portugal', coordinates: [-9.1393, 38.7223] },      // Lisboa
-			{ name: 'Panamá', coordinates: [-79.5199, 8.9824] },        // Cidade do Panamá
-			{ name: 'Estados Unidos', coordinates: [-77.0369, 38.9072] }, // Washington DC
-			{ name: 'Brasil', coordinates: [-47.9292, -15.7801] }       // Volta para Brasília
+			[-47.9292, -15.7801],  // Brasil (Brasília)
+			[139.6917, 35.6895],   // Japão (Tokyo)
+			[-9.1393, 38.7223],    // Portugal (Lisboa)
+			[-79.5199, 8.9824],    // Panamá (Cidade do Panamá)
+			[-77.0369, 38.9072],   // Estados Unidos (Washington DC)
 		];
 
 		// Create SVG
@@ -69,7 +68,8 @@
 			.attr('cy', height / 2)
 			.attr('r', projection.scale())
 			.attr('fill', '#1E3A8A')
-			.attr('opacity', 0.15);
+			.attr('opacity', 0.15)
+			.attr('class', 'globe-sphere');
 
 		// Add glow effect
 		const defs = svg.append('defs');
@@ -93,26 +93,8 @@
 			.attr('stroke', '#3B82F6')
 			.attr('stroke-width', 2)
 			.attr('opacity', 0.3)
-			.attr('filter', 'url(#glow)');
-
-		// Create group for tour elements
-		const tourGroup = svg.append('g');
-
-		// Add tour path (will be updated during animation)
-		const tourPath = tourGroup.append('path')
-			.attr('fill', 'none')
-			.attr('stroke', '#EF4444')
-			.attr('stroke-width', 2.5)
-			.attr('stroke-linecap', 'round')
-			.attr('opacity', 0.8);
-
-		// Add location marker
-		const marker = tourGroup.append('circle')
-			.attr('r', 5)
-			.attr('fill', '#EF4444')
-			.attr('stroke', '#FFFFFF')
-			.attr('stroke-width', 2)
-			.style('filter', 'drop-shadow(0 0 8px rgba(239, 68, 68, 0.8))');
+			.attr('filter', 'url(#glow)')
+			.attr('class', 'globe-outline');
 
 		// Load and render world data
 		d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
@@ -131,7 +113,7 @@
 					.attr('opacity', 0.3);
 
 				// Add countries
-				const countriesGroup = svg.append('g')
+				svg.append('g')
 					.selectAll('path')
 					.data(countries.features)
 					.join('path')
@@ -152,102 +134,89 @@
 					.attr('stroke-width', 1)
 					.attr('opacity', 0.5);
 
-				// Bring tour elements to front
-				tourGroup.raise();
+				// Create group for tour elements (on top)
+				const tourGroup = svg.append('g').attr('class', 'tour-group');
+
+				// Add tour path
+				const tourPath = tourGroup.append('path')
+					.attr('class', 'tour-path')
+					.attr('fill', 'none')
+					.attr('stroke', '#EF4444')
+					.attr('stroke-width', 2.5)
+					.attr('stroke-linecap', 'round')
+					.attr('stroke-linejoin', 'round')
+					.attr('opacity', 0.9);
+
+				// Add location marker
+				const marker = tourGroup.append('circle')
+					.attr('class', 'tour-marker')
+					.attr('r', 5)
+					.attr('fill', '#EF4444')
+					.attr('stroke', '#FFFFFF')
+					.attr('stroke-width', 2)
+					.style('filter', 'drop-shadow(0 0 8px rgba(239, 68, 68, 0.8))');
 
 				// World Tour Animation
-				let currentLocation = 0;
-				const transitionDuration = 2500; // 2.5 seconds per transition
+				let currentIndex = 0;
+				const transitionDuration = 2500;
+				let isAnimating = false;
 
-				function updateGlobe() {
-					const p1 = locations[currentLocation].coordinates;
-					const p2 = locations[(currentLocation + 1) % locations.length].coordinates;
+				function transition() {
+					if (isAnimating) return;
 
-					// Interpolate rotation
-					const rotationInterpolator = d3.geoInterpolate(p1, p2);
+					isAnimating = true;
+					const from = locations[currentIndex];
+					const to = locations[(currentIndex + 1) % locations.length];
 
-					// Create great circle arc
-					const arcGenerator = d3.geoGreatArc();
-					const arcPath = {
-						type: 'LineString',
-						coordinates: [p1, p2]
-					};
+					// Interpolate between locations
+					const interpolate = d3.geoInterpolate(from, to);
 
-					// Animate rotation and path
-					d3.transition()
+					// Animate
+					const t = d3.transition()
 						.duration(transitionDuration)
-						.tween('rotate', function() {
-							return function(t) {
-								// Interpolate rotation
-								const interpolatedPoint = rotationInterpolator(t);
-								const rotate = [-interpolatedPoint[0], -interpolatedPoint[1]];
-								projection.rotate(rotate);
+						.ease(d3.easeCubic);
 
-								// Update all paths
-								svg.selectAll('.country').attr('d', path);
-								svg.selectAll('.graticule').attr('d', path);
-								svg.selectAll('.borders').attr('d', path);
+					t.tween('rotate', function() {
+						return function(t) {
+							// Update projection rotation
+							const point = interpolate(t);
+							projection.rotate([-point[0], -point[1]]);
 
-								// Update tour path (draw partial arc based on t)
-								const partialArc = {
-									type: 'LineString',
-									coordinates: [
-										p1,
-										rotationInterpolator(t)
-									]
-								};
-								tourPath.attr('d', path(partialArc));
+							// Update all map elements
+							svg.selectAll('.country').attr('d', path);
+							svg.selectAll('.graticule').attr('d', path);
+							svg.selectAll('.borders').attr('d', path);
 
-								// Update marker position
-								const markerPos = projection(rotationInterpolator(t));
-								if (markerPos) {
-									marker
-										.attr('cx', markerPos[0])
-										.attr('cy', markerPos[1])
-										.attr('opacity', 1);
-								} else {
-									marker.attr('opacity', 0);
-								}
+							// Update tour path
+							const currentPoint = interpolate(t);
+							const arc = {
+								type: 'LineString',
+								coordinates: [from, currentPoint]
 							};
-						})
-						.on('end', function() {
-							// Move to next location
-							currentLocation = (currentLocation + 1) % (locations.length - 1);
-							// Wait a bit before next transition
-							setTimeout(updateGlobe, 800);
-						});
-				}
+							tourPath.attr('d', path(arc));
 
-				// Start the tour
-				setTimeout(updateGlobe, 1000);
-
-				// Add drag interaction (pauses tour temporarily)
-				let isDragging = false;
-				const drag = d3.drag()
-					.on('start', function() {
-						isDragging = true;
-					})
-					.on('drag', function(event) {
-						const rotate = projection.rotate();
-						const k = 75 / projection.scale();
-						projection.rotate([
-							rotate[0] + event.dx * k,
-							rotate[1] - event.dy * k
-						]);
-
-						svg.selectAll('.country').attr('d', path);
-						svg.selectAll('.graticule').attr('d', path);
-						svg.selectAll('.borders').attr('d', path);
-						tourPath.attr('opacity', 0.3);
-						marker.attr('opacity', 0);
-					})
-					.on('end', function() {
-						isDragging = false;
-						tourPath.attr('opacity', 0.8);
-						marker.attr('opacity', 1);
+							// Update marker
+							const proj = projection(currentPoint);
+							if (proj) {
+								marker
+									.attr('cx', proj[0])
+									.attr('cy', proj[1])
+									.style('opacity', 1);
+							} else {
+								marker.style('opacity', 0);
+							}
+						};
 					});
 
-				svg.call(drag);
+					t.on('end', function() {
+						currentIndex = (currentIndex + 1) % locations.length;
+						isAnimating = false;
+						setTimeout(transition, 500);
+					});
+				}
+
+				// Start tour after a delay
+				setTimeout(transition, 1000);
 
 			})
 			.catch(function(error) {
