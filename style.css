@@ -361,9 +361,9 @@ p {
 .hero-visual {
 	position: relative;
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	height: 500px;
 }
 
 .globe-container {
@@ -397,8 +397,9 @@ p {
 
 /* Globe country label */
 .globe-country-label {
-	margin-top: var(--spacing-lg);
+	margin-top: var(--spacing-xl);
 	text-align: center;
+	width: 100%;
 }
 
 .globe-country-text {
@@ -933,7 +934,6 @@ p {
 
 	.hero-visual {
 		order: 1;
-		height: 400px;
 	}
 
 	.globe-container {
@@ -950,10 +950,6 @@ p {
 
 	.hero-container {
 		padding: var(--spacing-2xl) var(--container-padding);
-	}
-
-	.hero-visual {
-		height: 320px;
 	}
 
 	.globe-container {
