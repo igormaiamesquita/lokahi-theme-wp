@@ -18,18 +18,9 @@ get_header();
 	<!-- Hero Section -->
 	<section id="inicio" class="hero-section">
 		<div class="hero-container">
-			<div class="hero-content">
-				<h1 class="hero-title">
-					Performance digital com dados, estratégia e execução
-				</h1>
-				<p class="hero-subtitle">
-					Especialistas em mídia paga, automação de marketing e análise de dados.
-					Transformamos investimento em performance mensurável.
-				</p>
-				<div class="hero-cta">
-					<a href="#contato" class="btn btn-primary">Vamos conversar</a>
-				</div>
-			</div>
+			<h1 class="hero-title">
+				Performance digital com dados, estratégia e execução
+			</h1>
 
 			<!-- Hero Visual - Interactive Globe -->
 			<div class="hero-visual">
@@ -37,6 +28,15 @@ get_header();
 				<div class="globe-country-label">
 					<span class="globe-country-text">Trabalhos realizados em <strong id="current-country">Brasil</strong></span>
 				</div>
+			</div>
+
+			<p class="hero-subtitle">
+				Especialistas em mídia paga, automação de marketing e análise de dados.
+				Transformamos investimento em performance mensurável.
+			</p>
+
+			<div class="hero-cta">
+				<a href="#contato" class="btn btn-primary">Vamos conversar</a>
 			</div>
 		</div>
 	</section><!-- .hero-section -->

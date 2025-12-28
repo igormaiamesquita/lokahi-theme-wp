@@ -323,15 +323,15 @@ p {
 	z-index: 1;
 	display: grid;
 	grid-template-columns: 1fr 1fr;
+	grid-template-rows: auto auto;
 	gap: var(--spacing-3xl);
 	align-items: center;
 }
 
-.hero-content {
-	text-align: left;
-}
-
 .hero-title {
+	grid-column: 1;
+	grid-row: 1;
+	text-align: left;
 	max-width: 600px;
 	margin-bottom: var(--spacing-lg);
 	opacity: 0;
@@ -343,6 +343,9 @@ p {
 }
 
 .hero-subtitle {
+	grid-column: 1;
+	grid-row: 2;
+	text-align: left;
 	font-size: var(--font-size-lg);
 	color: var(--color-text-light);
 	max-width: 550px;
@@ -353,12 +356,17 @@ p {
 }
 
 .hero-cta {
+	grid-column: 1;
+	grid-row: 3;
+	text-align: left;
 	opacity: 0;
 	transform: translateY(30px);
 }
 
 /* Hero Visual - Interactive Globe */
 .hero-visual {
+	grid-column: 2;
+	grid-row: 1 / 3;
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -973,25 +981,34 @@ p {
 	/* Hero responsive */
 	.hero-container {
 		grid-template-columns: 1fr;
+		grid-template-rows: auto;
 		gap: var(--spacing-xl);
 		text-align: center;
 	}
 
-	.hero-content {
-		text-align: center;
-		order: 2;
-	}
-
 	.hero-title {
+		grid-column: 1;
+		grid-row: 1;
 		max-width: 100%;
-	}
-
-	.hero-subtitle {
-		max-width: 100%;
+		text-align: center;
 	}
 
 	.hero-visual {
-		order: 1;
+		grid-column: 1;
+		grid-row: 2;
+	}
+
+	.hero-subtitle {
+		grid-column: 1;
+		grid-row: 3;
+		max-width: 100%;
+		text-align: center;
+	}
+
+	.hero-cta {
+		grid-column: 1;
+		grid-row: 4;
+		text-align: center;
 	}
 
 	.globe-container {
