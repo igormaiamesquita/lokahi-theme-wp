@@ -10,11 +10,30 @@
 (function() {
 	'use strict';
 
-	// Wait for DOM and D3 to be ready
+	// Wait for DOM and D3 to be ready, then use Intersection Observer
 	if (document.readyState === 'loading') {
-		document.addEventListener('DOMContentLoaded', initGlobe);
+		document.addEventListener('DOMContentLoaded', setupGlobeObserver);
 	} else {
-		initGlobe();
+		setupGlobeObserver();
+	}
+
+	function setupGlobeObserver() {
+		const container = document.querySelector('.globe-container');
+		if (!container) return;
+
+		// Use Intersection Observer to only init when visible
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					observer.disconnect();
+					initGlobe();
+				}
+			});
+		}, {
+			rootMargin: '100px' // Start loading slightly before it comes into view
+		});
+
+		observer.observe(container);
 	}
 
 	function initGlobe() {

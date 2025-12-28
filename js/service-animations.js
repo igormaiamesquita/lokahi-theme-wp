@@ -881,34 +881,38 @@ document.addEventListener('DOMContentLoaded', function() {
 		pulseDesktop();
 	}
 
-	// Initialize animations for visible service cards
+	// Initialize animations with Intersection Observer for better performance
 	const serviceCards = document.querySelectorAll('.service-card');
 
 	if (serviceCards.length >= 3) {
-		// Service 1: Mídia Paga
-		const container1 = serviceCards[0].querySelector('.service-illustration');
-		if (container1) {
-			createMediaPagaAnimation(container1);
-		}
+		// Map of service cards to their animation functions
+		const animationMap = [
+			createMediaPagaAnimation,     // Service 1: Mídia Paga
+			createAutomacaoAnimation,      // Service 2: Automação
+			createAnaliseAnimation,        // Service 3: Análise de Dados
+			createSitesAnimation           // Service 4: Sites e Landing Pages
+		];
 
-		// Service 2: Automação
-		const container2 = serviceCards[1].querySelector('.service-illustration');
-		if (container2) {
-			createAutomacaoAnimation(container2);
-		}
+		// Use Intersection Observer to only initialize animations when visible
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					const card = entry.target;
+					const index = Array.from(serviceCards).indexOf(card);
+					const container = card.querySelector('.service-illustration');
 
-		// Service 3: Análise de Dados
-		const container3 = serviceCards[2].querySelector('.service-illustration');
-		if (container3) {
-			createAnaliseAnimation(container3);
-		}
+					if (container && animationMap[index]) {
+						animationMap[index](container);
+						observer.unobserve(card); // Stop observing after initialization
+					}
+				}
+			});
+		}, {
+			rootMargin: '50px', // Start loading slightly before it comes into view
+			threshold: 0.1
+		});
 
-		// Service 4: Sites e Landing Pages
-		if (serviceCards.length >= 4) {
-			const container4 = serviceCards[3].querySelector('.service-illustration');
-			if (container4) {
-				createSitesAnimation(container4);
-			}
-		}
+		// Observe all service cards
+		serviceCards.forEach(card => observer.observe(card));
 	}
 });

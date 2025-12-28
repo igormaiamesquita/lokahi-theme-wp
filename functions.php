@@ -143,26 +143,29 @@ function lokahi_digital_scripts() {
 	wp_enqueue_style( 'lokahi-digital-style', get_stylesheet_uri(), array(), _S_VERSION );
 	wp_style_add_data( 'lokahi-digital-style', 'rtl', 'replace' );
 
-	// D3.js library from CDN
-	wp_enqueue_script( 'd3-js', 'https://cdn.jsdelivr.net/npm/d3@7', array(), '7', true );
-
-	// TopoJSON library from CDN (required for globe)
-	wp_enqueue_script( 'topojson-js', 'https://cdn.jsdelivr.net/npm/topojson-client@3', array(), '3', true );
-
-	// Anime.js library from CDN
-	wp_enqueue_script( 'anime-js', 'https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js', array(), '3.2.1', true );
-
 	// Navigation script
 	wp_enqueue_script( 'lokahi-digital-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
 
-	// Globe script (depends on D3 and TopoJSON)
-	wp_enqueue_script( 'lokahi-digital-globe', get_template_directory_uri() . '/js/globe.js', array( 'd3-js', 'topojson-js' ), _S_VERSION, true );
+	// Carregar D3.js e scripts relacionados apenas na homepage
+	if ( is_front_page() ) {
+		// D3.js minificado (defer adicionado via filtro)
+		wp_enqueue_script( 'd3-js', 'https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js', array(), '7', true );
 
-	// Service animations script (depends on D3)
-	wp_enqueue_script( 'lokahi-digital-service-animations', get_template_directory_uri() . '/js/service-animations.js', array( 'd3-js' ), _S_VERSION, true );
+		// TopoJSON minificado (required for globe)
+		wp_enqueue_script( 'topojson-js', 'https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js', array(), '3', true );
 
-	// Custom animations script (depends on anime.js)
-	wp_enqueue_script( 'lokahi-digital-animations', get_template_directory_uri() . '/js/animations.js', array( 'anime-js' ), _S_VERSION, true );
+		// Anime.js minificado
+		wp_enqueue_script( 'anime-js', 'https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js', array(), '3.2.1', true );
+
+		// Globe script (depends on D3 and TopoJSON)
+		wp_enqueue_script( 'lokahi-digital-globe', get_template_directory_uri() . '/js/globe.js', array( 'd3-js', 'topojson-js' ), _S_VERSION, true );
+
+		// Service animations script (depends on D3)
+		wp_enqueue_script( 'lokahi-digital-service-animations', get_template_directory_uri() . '/js/service-animations.js', array( 'd3-js' ), _S_VERSION, true );
+
+		// Custom animations script (depends on anime.js)
+		wp_enqueue_script( 'lokahi-digital-animations', get_template_directory_uri() . '/js/animations.js', array( 'anime-js' ), _S_VERSION, true );
+	}
 
 	// Comment reply script
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -170,6 +173,42 @@ function lokahi_digital_scripts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'lokahi_digital_scripts' );
+
+/**
+ * Add defer attribute to scripts for better performance
+ */
+function lokahi_digital_defer_scripts( $tag, $handle, $src ) {
+	// Scripts que devem ter defer
+	$defer_scripts = array(
+		'd3-js',
+		'topojson-js',
+		'anime-js',
+		'lokahi-digital-globe',
+		'lokahi-digital-service-animations',
+		'lokahi-digital-animations',
+	);
+
+	if ( in_array( $handle, $defer_scripts, true ) ) {
+		return str_replace( ' src', ' defer src', $tag );
+	}
+
+	return $tag;
+}
+add_filter( 'script_loader_tag', 'lokahi_digital_defer_scripts', 10, 3 );
+
+/**
+ * Add preconnect to CDN domains for better performance
+ */
+function lokahi_digital_resource_hints( $urls, $relation_type ) {
+	if ( 'preconnect' === $relation_type && is_front_page() ) {
+		$urls[] = array(
+			'href' => 'https://cdn.jsdelivr.net',
+			'crossorigin',
+		);
+	}
+	return $urls;
+}
+add_filter( 'wp_resource_hints', 'lokahi_digital_resource_hints', 10, 2 );
 
 /**
  * Implement the Custom Header feature.
