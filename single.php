@@ -23,31 +23,6 @@ get_header();
 					<div class="single-post-header-container">
 
 						<div class="post-meta-top">
-							<?php
-							$categories = get_the_category();
-							if ( ! empty( $categories ) ) :
-								?>
-								<span class="post-category-badge">
-									<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-										<path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
-										<line x1="7" y1="7" x2="7.01" y2="7"></line>
-									</svg>
-									<a href="<?php echo esc_url( get_category_link( $categories[0]->term_id ) ); ?>">
-										<?php echo esc_html( $categories[0]->name ); ?>
-									</a>
-								</span>
-							<?php endif; ?>
-
-							<span class="post-date">
-								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-									<rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-									<line x1="16" y1="2" x2="16" y2="6"></line>
-									<line x1="8" y1="2" x2="8" y2="6"></line>
-									<line x1="3" y1="10" x2="21" y2="10"></line>
-								</svg>
-								<?php echo get_the_date(); ?>
-							</span>
-
 							<span class="post-reading-time">
 								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 									<circle cx="12" cy="12" r="10"></circle>
@@ -83,11 +58,39 @@ get_header();
 						<?php the_content(); ?>
 					</div>
 
-					<?php
-					$tags = get_the_tags();
-					if ( $tags ) :
-						?>
-						<footer class="single-post-footer">
+					<!-- Meta info moved to bottom -->
+					<footer class="single-post-footer">
+						<div class="post-meta-bottom">
+							<?php
+							$categories = get_the_category();
+							if ( ! empty( $categories ) ) :
+								?>
+								<span class="post-category-badge">
+									<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+										<path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+										<line x1="7" y1="7" x2="7.01" y2="7"></line>
+									</svg>
+									<a href="<?php echo esc_url( get_category_link( $categories[0]->term_id ) ); ?>">
+										<?php echo esc_html( $categories[0]->name ); ?>
+									</a>
+								</span>
+							<?php endif; ?>
+
+							<span class="post-date">
+								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+									<rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+									<line x1="16" y1="2" x2="16" y2="6"></line>
+									<line x1="8" y1="2" x2="8" y2="6"></line>
+									<line x1="3" y1="10" x2="21" y2="10"></line>
+								</svg>
+								<?php echo get_the_date(); ?>
+							</span>
+						</div>
+
+						<?php
+						$tags = get_the_tags();
+						if ( $tags ) :
+							?>
 							<div class="post-tags">
 								<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 									<path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
@@ -99,10 +102,71 @@ get_header();
 								}
 								?>
 							</div>
-						</footer>
-					<?php endif; ?>
+						<?php endif; ?>
+					</footer>
 
 				</div><!-- .single-post-container -->
+
+				<!-- Related Posts Section -->
+				<?php
+				$categories = get_the_category();
+				if ( ! empty( $categories ) ) :
+					$category_ids = array();
+					foreach ( $categories as $category ) {
+						$category_ids[] = $category->term_id;
+					}
+
+					$related_args = array(
+						'category__in'        => $category_ids,
+						'post__not_in'        => array( get_the_ID() ),
+						'posts_per_page'      => 3,
+						'ignore_sticky_posts' => 1,
+					);
+
+					$related_query = new WP_Query( $related_args );
+
+					if ( $related_query->have_posts() ) :
+						?>
+						<section class="related-posts-section">
+							<div class="related-posts-container">
+								<h2 class="related-posts-title">Posts Relacionados</h2>
+								<div class="related-posts-grid">
+									<?php
+									while ( $related_query->have_posts() ) :
+										$related_query->the_post();
+										?>
+										<article class="related-post-card">
+											<?php if ( has_post_thumbnail() ) : ?>
+												<div class="related-post-thumbnail">
+													<a href="<?php the_permalink(); ?>">
+														<?php the_post_thumbnail( 'medium' ); ?>
+													</a>
+												</div>
+											<?php endif; ?>
+											<div class="related-post-content">
+												<h3 class="related-post-title">
+													<a href="<?php the_permalink(); ?>">
+														<?php the_title(); ?>
+													</a>
+												</h3>
+												<div class="related-post-meta">
+													<span class="related-post-date">
+														<?php echo get_the_date(); ?>
+													</span>
+												</div>
+											</div>
+										</article>
+										<?php
+									endwhile;
+									wp_reset_postdata();
+									?>
+								</div>
+							</div>
+						</section>
+						<?php
+					endif;
+				endif;
+				?>
 
 				<nav class="post-navigation">
 					<div class="post-navigation-container">
