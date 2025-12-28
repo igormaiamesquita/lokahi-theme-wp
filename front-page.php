@@ -30,6 +30,15 @@ get_header();
 					<a href="#contato" class="btn btn-primary">Vamos conversar</a>
 				</div>
 			</div>
+
+			<!-- Hero Visual - Animated Planet -->
+			<div class="hero-visual">
+				<div class="planet-container">
+					<div class="planet-glow"></div>
+					<div class="planet"></div>
+					<div class="planet-ring"></div>
+				</div>
+			</div>
 		</div>
 	</section><!-- .hero-section -->
 
