@@ -208,6 +208,9 @@
 					// Update country name to show destination
 					updateCountryName(nextIndex);
 
+					// Reset tour path opacity
+					tourPath.attr('opacity', 0.9);
+
 					// Interpolate between locations
 					const interpolate = d3.geoInterpolate(from, to);
 
@@ -234,6 +237,12 @@
 								coordinates: [from, currentPoint]
 							};
 							tourPath.attr('d', path(arc));
+
+							// Fade out the line smoothly in the last 20% of animation
+							if (t > 0.8) {
+								const fadeProgress = (t - 0.8) / 0.2; // 0 to 1 in last 20%
+								tourPath.attr('opacity', 0.9 * (1 - fadeProgress));
+							}
 
 							// Update marker
 							const proj = projection(currentPoint);
