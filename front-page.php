@@ -192,7 +192,9 @@ get_header();
 						<article class="post-card" data-animate="post">
 							<?php if ( has_post_thumbnail() ) : ?>
 								<div class="post-thumbnail">
-									<?php the_post_thumbnail( 'medium' ); ?>
+									<a href="<?php the_permalink(); ?>">
+										<?php the_post_thumbnail( 'medium' ); ?>
+									</a>
 								</div>
 							<?php endif; ?>
 							<div class="post-content">
