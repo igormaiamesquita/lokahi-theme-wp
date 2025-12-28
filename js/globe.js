@@ -229,16 +229,18 @@
 							svg.selectAll('.graticule').attr('d', path);
 							svg.selectAll('.borders').attr('d', path);
 
-							// Update tour path - make it shrink at the end instead of fading
+							// Update tour path - make it shrink smoothly at the end
 							const currentPoint = interpolate(t);
 
-							// In the last 20% of animation, shorten the line
+							// Shorten the line gradually in the last 15% of animation
 							let lineStart = from;
-							if (t > 0.8) {
+							if (t > 0.85) {
 								// Shrink from the start: move start point towards end
-								const shrinkProgress = (t - 0.8) / 0.2; // 0 to 1 in last 20%
+								const shrinkProgress = (t - 0.85) / 0.15; // 0 to 1 in last 15%
+								// Use easeInCubic for smooth acceleration
+								const easedProgress = shrinkProgress * shrinkProgress * shrinkProgress;
 								const shrinkInterpolate = d3.geoInterpolate(from, currentPoint);
-								lineStart = shrinkInterpolate(shrinkProgress * 0.7); // Shrink to 70%
+								lineStart = shrinkInterpolate(easedProgress); // Shrink completely (0 to 100%)
 							}
 
 							const arc = {
