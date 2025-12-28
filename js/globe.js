@@ -51,11 +51,12 @@
 		const height = 500;
 
 		// World tour locations (longitude, latitude)
-		// Brasil → Japão → Portugal → Panamá → Estados Unidos → Brasil (loop)
+		// Brasil → Japão → Portugal → Chile → Panamá → Estados Unidos → Brasil (loop)
 		const locations = [
 			[-47.9292, -15.7801],  // Brasil (Brasília)
 			[139.6917, 35.6895],   // Japão (Tokyo)
 			[-9.1393, 38.7223],    // Portugal (Lisboa)
+			[-70.6693, -33.4489],  // Chile (Santiago)
 			[-79.5199, 8.9824],    // Panamá (Cidade do Panamá)
 			[-77.0369, 38.9072],   // Estados Unidos (Washington DC)
 		];
@@ -65,6 +66,7 @@
 			'Brasil',
 			'Japão',
 			'Portugal',
+			'Chile',
 			'Panamá',
 			'Estados Unidos'
 		];
@@ -208,9 +210,6 @@
 					// Update country name to show destination
 					updateCountryName(nextIndex);
 
-					// Reset tour path opacity
-					tourPath.attr('opacity', 0.9);
-
 					// Interpolate between locations
 					const interpolate = d3.geoInterpolate(from, to);
 
@@ -230,19 +229,23 @@
 							svg.selectAll('.graticule').attr('d', path);
 							svg.selectAll('.borders').attr('d', path);
 
-							// Update tour path
+							// Update tour path - make it shrink at the end instead of fading
 							const currentPoint = interpolate(t);
+
+							// In the last 20% of animation, shorten the line
+							let lineStart = from;
+							if (t > 0.8) {
+								// Shrink from the start: move start point towards end
+								const shrinkProgress = (t - 0.8) / 0.2; // 0 to 1 in last 20%
+								const shrinkInterpolate = d3.geoInterpolate(from, currentPoint);
+								lineStart = shrinkInterpolate(shrinkProgress * 0.7); // Shrink to 70%
+							}
+
 							const arc = {
 								type: 'LineString',
-								coordinates: [from, currentPoint]
+								coordinates: [lineStart, currentPoint]
 							};
-							tourPath.attr('d', path(arc));
-
-							// Fade out the line smoothly in the last 20% of animation
-							if (t > 0.8) {
-								const fadeProgress = (t - 0.8) / 0.2; // 0 to 1 in last 20%
-								tourPath.attr('opacity', 0.9 * (1 - fadeProgress));
-							}
+							tourPath.attr('d', path(arc)).attr('opacity', 0.9);
 
 							// Update marker
 							const proj = projection(currentPoint);
