@@ -281,12 +281,19 @@ get_header();
 									</a>
 								</h3>
 								<div class="post-meta">
-									<time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>">
-										<?php echo esc_html( get_the_date() ); ?>
-									</time>
+									<span class="post-reading-time">
+										<?php
+										$word_count = str_word_count( strip_tags( get_the_content() ) );
+										$reading_time = ceil( $word_count / 200 );
+										echo $reading_time . ' min de leitura';
+										?>
+									</span>
 								</div>
 								<div class="post-excerpt">
-									<?php the_excerpt(); ?>
+									<?php
+									$excerpt = get_the_excerpt();
+									echo wp_trim_words( $excerpt, 15, '...' );
+									?>
 								</div>
 								<a href="<?php the_permalink(); ?>" class="post-link">
 									Ler mais
