@@ -146,11 +146,14 @@ function lokahi_digital_scripts() {
 	// Navigation script
 	wp_enqueue_script( 'lokahi-digital-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
 
-	// Carregar D3.js e scripts relacionados apenas na homepage
-	if ( is_front_page() ) {
+	// Carregar D3.js na homepage e na página 404
+	if ( is_front_page() || is_404() ) {
 		// D3.js minificado (defer adicionado via filtro)
 		wp_enqueue_script( 'd3-js', 'https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js', array(), '7', true );
+	}
 
+	// Carregar scripts específicos da homepage
+	if ( is_front_page() ) {
 		// TopoJSON minificado (required for globe)
 		wp_enqueue_script( 'topojson-js', 'https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js', array(), '3', true );
 
