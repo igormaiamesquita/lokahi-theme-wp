@@ -36,7 +36,7 @@ get_header();
 			</p>
 
 			<div class="hero-cta">
-				<a href="#contato" class="btn btn-primary">Vamos conversar</a>
+				<a href="#contato" class="btn btn-primary">Discutir performance</a>
 			</div>
 		</div>
 	</section><!-- .hero-section -->
@@ -66,7 +66,7 @@ get_header();
 						Gestão técnica e estratégica de campanhas em Google Ads, Meta Ads e LinkedIn Ads com foco em performance e ROI mensurável.
 					</p>
 					<a href="https://wa.me/5511991585963" target="_blank" rel="noopener noreferrer" class="service-btn">
-						<span>Vamos conversar</span>
+						<span>Discutir performance</span>
 						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 							<polyline points="9 18 15 12 9 6"></polyline>
 						</svg>
@@ -88,7 +88,7 @@ get_header();
 						Implementação de automações de marketing e integração de ferramentas. Fluxos inteligentes que conectam dados e geram eficiência.
 					</p>
 					<a href="https://wa.me/5511991585963" target="_blank" rel="noopener noreferrer" class="service-btn">
-						<span>Vamos conversar</span>
+						<span>Discutir performance</span>
 						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 							<polyline points="9 18 15 12 9 6"></polyline>
 						</svg>
@@ -108,7 +108,7 @@ get_header();
 						Configuração de tracking, análise de comportamento e construção de dashboards. Transformamos dados em insights acionáveis.
 					</p>
 					<a href="https://wa.me/5511991585963" target="_blank" rel="noopener noreferrer" class="service-btn">
-						<span>Vamos conversar</span>
+						<span>Discutir performance</span>
 						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 							<polyline points="9 18 15 12 9 6"></polyline>
 						</svg>
@@ -130,7 +130,7 @@ get_header();
 						Desenvolvimento focado em conversão, performance e experiência. Páginas rápidas, responsivas e orientadas a resultados.
 					</p>
 					<a href="https://wa.me/5511991585963" target="_blank" rel="noopener noreferrer" class="service-btn">
-						<span>Vamos conversar</span>
+						<span>Discutir performance</span>
 						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 							<polyline points="9 18 15 12 9 6"></polyline>
 						</svg>
@@ -151,7 +151,7 @@ get_header();
 						Desenvolvimento de soluções sob medida com arquitetura escalável e código otimizado. Sistemas robustos que crescem junto com seu negócio.
 					</p>
 					<a href="https://wa.me/5511991585963" target="_blank" rel="noopener noreferrer" class="service-btn">
-						<span>Vamos conversar</span>
+						<span>Discutir performance</span>
 						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 							<polyline points="9 18 15 12 9 6"></polyline>
 						</svg>
@@ -174,7 +174,7 @@ get_header();
 						Design estratégico que converte. Branding, interfaces e materiais visuais pensados para engajamento e impacto mensurável.
 					</p>
 					<a href="https://wa.me/5511991585963" target="_blank" rel="noopener noreferrer" class="service-btn">
-						<span>Vamos conversar</span>
+						<span>Discutir performance</span>
 						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 							<polyline points="9 18 15 12 9 6"></polyline>
 						</svg>
@@ -279,7 +279,7 @@ get_header();
 	<section id="contato" class="contact-section">
 		<div class="contact-container">
 			<div class="contact-content" data-animate="fade">
-				<h2 class="section-title">Vamos conversar</h2>
+				<h2 class="section-title">Discutir performance</h2>
 				<p class="contact-text">
 					Se você busca uma abordagem técnica, estratégica e orientada a dados
 					para o seu marketing digital, entre em contato.
