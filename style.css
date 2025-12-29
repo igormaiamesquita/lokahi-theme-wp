@@ -324,7 +324,7 @@ p {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	grid-template-rows: auto auto;
-	gap: var(--spacing-md);
+	gap: var(--spacing-sm);
 	align-items: center;
 }
 
