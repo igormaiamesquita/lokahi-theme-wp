@@ -142,7 +142,7 @@ ul, ol {
 h1, h2, h3, h4, h5, h6 {
 	font-weight: 600;
 	line-height: 1.2;
-	margin-bottom: var(--spacing-md);
+	margin-bottom: var(--spacing-sm);
 	color: var(--color-text);
 }
 
@@ -160,7 +160,7 @@ h3 {
 }
 
 p {
-	margin-bottom: var(--spacing-md);
+	margin-bottom: var(--spacing-sm);
 	line-height: 1.7;
 }
 
@@ -333,7 +333,7 @@ p {
 	grid-row: 1;
 	text-align: left;
 	max-width: 600px;
-	margin-bottom: var(--spacing-md);
+	margin-bottom: var(--spacing-sm);
 	opacity: 0;
 	transform: translateY(30px);
 	background: linear-gradient(135deg, var(--color-text) 0%, var(--color-primary) 100%);
@@ -349,7 +349,7 @@ p {
 	font-size: var(--font-size-lg);
 	color: var(--color-text-light);
 	max-width: 550px;
-	margin-bottom: var(--spacing-md);
+	margin-bottom: var(--spacing-sm);
 	line-height: 1.8;
 	opacity: 0;
 	transform: translateY(30px);
@@ -443,7 +443,7 @@ p {
 }
 
 .section-title {
-	margin-bottom: var(--spacing-md);
+	margin-bottom: var(--spacing-sm);
 }
 
 .section-description {
@@ -520,7 +520,7 @@ p {
 	background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
 	border: 1px solid rgba(59, 130, 246, 0.3);
 	border-radius: 10px;
-	margin-bottom: var(--spacing-md);
+	margin-bottom: var(--spacing-sm);
 	color: var(--color-primary);
 	transition: all 0.3s ease;
 }
@@ -534,7 +534,7 @@ p {
 .service-title {
 	font-size: var(--font-size-2xl);
 	font-weight: 600;
-	margin-bottom: var(--spacing-md);
+	margin-bottom: var(--spacing-sm);
 	color: var(--color-text);
 }
 
@@ -675,12 +675,12 @@ p {
 .post-meta {
 	font-size: var(--font-size-sm);
 	color: var(--color-text-light);
-	margin-bottom: var(--spacing-md);
+	margin-bottom: var(--spacing-sm);
 }
 
 .post-excerpt {
 	color: var(--color-text-light);
-	margin-bottom: var(--spacing-md);
+	margin-bottom: var(--spacing-sm);
 	line-height: 1.7;
 }
 
@@ -1210,7 +1210,7 @@ p {
 .error-text-main {
 	font-size: var(--font-size-lg);
 	color: var(--color-text);
-	margin-bottom: var(--spacing-md);
+	margin-bottom: var(--spacing-sm);
 }
 
 .error-text-secondary {
@@ -1239,7 +1239,7 @@ p {
 
 .error-404-suggestions h3 {
 	font-size: var(--font-size-lg);
-	margin-bottom: var(--spacing-md);
+	margin-bottom: var(--spacing-sm);
 	color: var(--color-text);
 }
 
@@ -1290,7 +1290,7 @@ p {
 
 .archive-title {
 	font-size: var(--font-size-4xl);
-	margin-bottom: var(--spacing-md);
+	margin-bottom: var(--spacing-sm);
 	background: var(--gradient-primary);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
@@ -1359,7 +1359,7 @@ p {
 .post-meta {
 	display: flex;
 	gap: var(--spacing-md);
-	margin-bottom: var(--spacing-md);
+	margin-bottom: var(--spacing-sm);
 	font-size: var(--font-size-sm);
 	color: var(--color-text-light);
 	flex-wrap: wrap;
@@ -1387,7 +1387,7 @@ p {
 
 .archive-post-card .entry-title {
 	font-size: var(--font-size-xl);
-	margin-bottom: var(--spacing-md);
+	margin-bottom: var(--spacing-sm);
 }
 
 .archive-post-card .entry-title a {
@@ -1477,7 +1477,7 @@ p {
 
 .no-posts-found h2 {
 	font-size: var(--font-size-2xl);
-	margin-bottom: var(--spacing-md);
+	margin-bottom: var(--spacing-sm);
 	color: var(--color-text);
 }
 
@@ -1751,7 +1751,7 @@ p {
 
 .search-title {
 	font-size: var(--font-size-3xl);
-	margin-bottom: var(--spacing-md);
+	margin-bottom: var(--spacing-sm);
 	color: var(--color-text);
 }
 
@@ -1826,7 +1826,7 @@ p {
 	display: flex;
 	flex-wrap: wrap;
 	gap: var(--spacing-md);
-	margin-bottom: var(--spacing-md);
+	margin-bottom: var(--spacing-sm);
 	font-size: var(--font-size-sm);
 }
 
@@ -1858,7 +1858,7 @@ p {
 
 .result-title {
 	font-size: var(--font-size-xl);
-	margin-bottom: var(--spacing-md);
+	margin-bottom: var(--spacing-sm);
 }
 
 .result-title a {
@@ -1914,7 +1914,7 @@ p {
 
 .no-results-found h2 {
 	font-size: var(--font-size-2xl);
-	margin-bottom: var(--spacing-md);
+	margin-bottom: var(--spacing-sm);
 	color: var(--color-text);
 }
 
@@ -1935,7 +1935,7 @@ p {
 
 .search-suggestions h3 {
 	font-size: var(--font-size-lg);
-	margin-bottom: var(--spacing-md);
+	margin-bottom: var(--spacing-sm);
 	color: var(--color-text);
 }
 
@@ -1969,7 +1969,7 @@ p {
 
 .search-again h3 {
 	font-size: var(--font-size-lg);
-	margin-bottom: var(--spacing-md);
+	margin-bottom: var(--spacing-sm);
 	color: var(--color-text);
 }
 
