@@ -184,6 +184,39 @@ get_header();
 		</div><!-- .services-container -->
 	</section><!-- .services-section -->
 
+	<!-- Not For Section -->
+	<section class="not-for-section">
+		<div class="not-for-container">
+			<div class="not-for-content" data-animate="fade">
+				<h2 class="section-title">Para quem não é</h2>
+				<p class="not-for-description">
+					Não somos indicados para quem busca soluções rápidas sem processo, ou crescimento sem mensuração.
+				</p>
+			</div>
+		</div>
+	</section><!-- .not-for-section -->
+
+	<!-- Clients Carousel Section -->
+	<section class="clients-section">
+		<div class="clients-container">
+			<h2 class="section-title">Clientes</h2>
+			<div class="clients-carousel">
+				<div class="clients-track">
+					<!-- Adicione as logos dos clientes aqui -->
+					<!-- Exemplo: -->
+					<!-- <div class="client-logo">
+						<img src="<?php echo get_template_directory_uri(); ?>/images/clients/logo1.png" alt="Cliente 1">
+					</div> -->
+					<!-- Para adicionar logos:
+					1. Crie uma pasta: wp-content/themes/lokahi-digital/images/clients/
+					2. Faça upload das imagens das logos nessa pasta
+					3. Descomente e duplique o exemplo acima para cada logo
+					-->
+				</div>
+			</div>
+		</div>
+	</section><!-- .clients-section -->
+
 	<!-- Experience Section -->
 	<section id="experiencia" class="experience-section">
 		<div class="experience-container">
