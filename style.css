@@ -324,7 +324,7 @@ p {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	grid-template-rows: auto auto;
-	gap: var(--spacing-sm);
+	gap: var(--spacing-xs);
 	align-items: center;
 }
 
@@ -333,7 +333,7 @@ p {
 	grid-row: 1;
 	text-align: left;
 	max-width: 600px;
-	margin-bottom: var(--spacing-sm);
+	margin-bottom: 0;
 	opacity: 0;
 	transform: translateY(30px);
 	background: linear-gradient(135deg, var(--color-text) 0%, var(--color-primary) 100%);
@@ -349,8 +349,8 @@ p {
 	font-size: var(--font-size-lg);
 	color: var(--color-text-light);
 	max-width: 550px;
-	margin-bottom: var(--spacing-sm);
-	line-height: 1.8;
+	margin-bottom: 0;
+	line-height: 1.5;
 	opacity: 0;
 	transform: translateY(30px);
 }
